@@ -3,20 +3,30 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
+# Configuração da página do Streamlit
 st.set_page_config(layout="wide")
 
-st.title("Curso de Bibliteconomia e Documentação")
-st.header("Dashboard do curso de Bibliteconomia e Documentação")
-df = pd.read_csv('curso.csv')
-df
+# Título e cabeçalho do dashboard
+st.title("Curso de Biblioteconomia e Documentação")
+st.header("Dashboard do Curso de Biblioteconomia e Documentação")
 
+# Conectando ao banco de dados SQLite
+conn = sqlite3.connect('curso.db')
+query = "SELECT * FROM curso"
+df = pd.read_sql_query(query, conn)
+conn.close()
+
+# Mostrando o DataFrame
+st.dataframe(df)
+
+# Criação dos gráficos
 col1, col2 = st.columns(2)
 
 fig_notas = px.bar(df,
                    x="Semestre",
                    y="CH",
                    color="Nota",
-                   title="Media de nota por semestre")
+                   title="Média de Nota por Semestre")
 col1.plotly_chart(fig_notas)
 
 fig_andamento = px.pie(df,
