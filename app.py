@@ -1,4 +1,3 @@
-import sqlite3
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -9,12 +8,10 @@ st.set_page_config(layout="wide")
 # Título e cabeçalho do dashboard
 st.title("Curso de Biblioteconomia e Documentação")
 st.header("Dashboard do Curso de Biblioteconomia e Documentação")
+st.subheader("Discente e Vanderlei Neto")
 
-# Conectando ao banco de dados SQLite
-conn = sqlite3.connect('curso.db')
-query = "SELECT * FROM curso"
-df = pd.read_sql_query(query, conn)
-conn.close()
+# Lendo os dados do CSV
+df = pd.read_csv('curso.csv')
 
 # Mostrando o DataFrame
 st.dataframe(df)
@@ -41,3 +38,7 @@ fig_ch = px.bar(df,
                 title='Carga Horária por Semestre e Status',
                 barmode='stack')
 st.plotly_chart(fig_ch)
+
+# Footer
+st.markdown("Feito por Vanderlei Neto", unsafe_allow_html=True)
+st.markdown("Tecnologias utilizadas: Python, Pandas, Streamlit e Plotly")
