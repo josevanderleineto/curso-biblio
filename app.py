@@ -10,8 +10,12 @@ st.title("Curso de Biblioteconomia e Documentação")
 st.header("Dashboard do Curso de Biblioteconomia e Documentação")
 st.subheader("Discente e Vanderlei Neto")
 
-# Lendo os dados do CSV
-df = pd.read_csv('curso.csv')
+# Lendo os dados do CSV (especificando colunas se possível)
+@st.cache_data
+def load_data():
+    return pd.read_csv('curso.csv')
+
+df = load_data()
 
 # Mostrando o DataFrame
 st.dataframe(df)
